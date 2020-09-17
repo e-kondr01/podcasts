@@ -26,7 +26,7 @@ SECRET_KEY = 'u)hh49-*m47no@fv-2)!%x)qi75t9c03q)&8s+inu&_(c-z$3r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'average-weather-web.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'podcasts-editing.herokuapp.com']
 
 
 # Application definition
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'weatherweb.urls'
+ROOT_URLCONF = 'podcasts.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'weatherweb.wsgi.application'
+WSGI_APPLICATION = 'podcasts.wsgi.application'
 
 
 # Database
