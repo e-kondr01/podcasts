@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .editing_tools import slice_audio, add_fade, combine_audio
 from django.views.decorators.csrf import csrf_exempt
 
 
