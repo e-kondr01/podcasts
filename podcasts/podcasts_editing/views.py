@@ -58,8 +58,9 @@ def photo(request, _id):
 
 
 def audio(request, _id):
-    with open(f'{_id}', "rb") as f:
-        return HttpResponse(f.read(), content_type="audio/mpeg")
+    try:
+        with open(f'{_id}', "rb") as f:
+            return HttpResponse(f.read(), content_type="audio/mpeg")
     except FileNotFoundError:
         res = {}
         res['result'] = 'fail'
