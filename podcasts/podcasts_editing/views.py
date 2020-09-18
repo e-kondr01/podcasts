@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import boto3
 
 from .forms import PhotoForm, AudioForm
 
@@ -62,6 +63,7 @@ def edit(request):
 
 
 def photo(request, name):
+    '''
     try:
         with open(f'photos/{name}.jpg', "rb") as f:
             return HttpResponse(f.read(), content_type="image/jpeg")
@@ -70,6 +72,14 @@ def photo(request, name):
         res['result'] = 'fail'
         res['reason'] = 'file not found'
         return JsonResponse(res)
+    '''
+
+    BUCKET_NAME = 'vezdekhod-static'
+    KEY = name
+
+    s3 = boto3.resource('s3')
+
+    s3.Bucket(BUCKET_NAME).download_file(KEY, 'my_local_image.jpg')
 
 
 def audio(request, name):

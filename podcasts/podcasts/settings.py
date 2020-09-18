@@ -125,7 +125,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 AWS_ACCESS_KEY_ID = 'AKIA4RP52ZJCJ4RY6SUM'
 AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'vezdekhod-static'
+AWS_STORAGE_BUCKET_NAME = 'vezdekhod'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
