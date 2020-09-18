@@ -1,3 +1,9 @@
 from django.db import models
 
-# Create your models here.
+
+class Photo(models.Model):
+    photo = models.ImageField(upload_to='photos/')
+
+
+class Audio(models.Model):
+    audio = models.FileField(upload_to='audios/')

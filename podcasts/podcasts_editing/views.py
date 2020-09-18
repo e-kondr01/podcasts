@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
+from .forms import PhotoForm, AudioForm
+
 
 def index(request):
     return HttpResponse('this is a page')
@@ -12,23 +14,37 @@ def podcast(request):
     if request.method == 'POST':
         q = request.GET.get('document', default=0)
         if q == 'photo':
-            _id = 1
-            f = open(f'{_id}.jpg', 'wb')
-            f.write(request.POST.get('photo'))
-            f.close()
-            res = {}
-            res['result'] = 'success'
-            res['address'] = f'https://dashboard.heroku.com/apps/podcasts-editing/photo/{_id}'
-            return JsonResponse(res)
+            form = PhotoForm(request.POST, request.FILES)
+            for filename, file in request.FILES.items():
+                name = request.FILES[filename].name
+
+            if form.is_valid():
+                form.save()
+                res = {}
+                res['result'] = 'success'
+                res['address'] = f'https://dashboard.heroku.com/apps/podcasts-editing/photo/{name}'
+                return JsonResponse(res)
+            else:
+                res = {}
+                res['result'] = 'fail'
+                res['reason'] = 'form not vailid'
+                return JsonResponse(res)
         elif q == 'audio':
-            _id = 2
-            f = open(f'{_id}.mp3', 'wb')
-            f.write(request.POST.get('audio'))
-            f.close()
-            res = {}
-            res['result'] = 'success'
-            res['address'] = f'https://dashboard.heroku.com/apps/podcasts-editing/audio/{_id}'
-            return JsonResponse(res)
+            form = AudioForm(request.POST, request.FILES)
+            for filename, file in request.FILES.items():
+                name = request.FILES[filename].name
+
+            if form.is_valid():
+                form.save()
+                res = {}
+                res['result'] = 'success'
+                res['address'] = f'https://dashboard.heroku.com/apps/podcasts-editing/audio/{name}'
+                return JsonResponse(res)
+            else:
+                res = {}
+                res['result'] = 'fail'
+                res['reason'] = 'form not vailid'
+                return JsonResponse(res)
         elif not q:
             res = {}
             res['result'] = 'fail'
@@ -45,9 +61,9 @@ def edit(request):
     return HttpResponse('edit')
 
 
-def photo(request, _id):
+def photo(request, name):
     try:
-        with open(f'{_id}.jpg', "rb") as f:
+        with open(f'photos/{name}.jpg', "rb") as f:
             return HttpResponse(f.read(), content_type="image/jpeg")
     except FileNotFoundError:
         res = {}
@@ -56,9 +72,9 @@ def photo(request, _id):
         return JsonResponse(res)
 
 
-def audio(request, _id):
+def audio(request, name):
     try:
-        with open(f'{_id}', "rb") as f:
+        with open(f'audios/{name}', "rb") as f:
             return HttpResponse(f.read(), content_type="audio/mpeg")
     except FileNotFoundError:
         res = {}
