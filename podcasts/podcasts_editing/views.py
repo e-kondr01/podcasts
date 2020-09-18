@@ -56,38 +56,3 @@ def podcast(request):
         res['result'] = 'fail'
         res['reason'] = 'method not POST'
         return JsonResponse(res)
-
-
-def edit(request):
-    return HttpResponse('edit')
-
-
-def photo(request, name):
-    '''
-    try:
-        with open(f'photos/{name}.jpg', "rb") as f:
-            return HttpResponse(f.read(), content_type="image/jpeg")
-    except FileNotFoundError:
-        res = {}
-        res['result'] = 'fail'
-        res['reason'] = 'file not found'
-        return JsonResponse(res)
-    '''
-
-    BUCKET_NAME = 'vezdekhod-static'
-    KEY = name
-
-    s3 = boto3.resource('s3')
-
-    s3.Bucket(BUCKET_NAME).download_file(KEY, 'my_local_image.jpg')
-
-
-def audio(request, name):
-    try:
-        with open(f'audios/{name}', "rb") as f:
-            return HttpResponse(f.read(), content_type="audio/mpeg")
-    except FileNotFoundError:
-        res = {}
-        res['result'] = 'fail'
-        res['reason'] = 'file not found'
-        return JsonResponse(res)
