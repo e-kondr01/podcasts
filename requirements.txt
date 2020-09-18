@@ -1,2 +1,4 @@
 Django
 Pillow
+boto3
+django-storages

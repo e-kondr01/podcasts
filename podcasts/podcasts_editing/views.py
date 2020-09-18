@@ -22,7 +22,7 @@ def podcast(request):
                 form.save()
                 res = {}
                 res['result'] = 'success'
-                res['address'] = f'https://dashboard.heroku.com/apps/podcasts-editing/photo/{name}'
+                res['address'] = f'https://podcasts-editing.herokuapp.com/photo/{name}'
                 return JsonResponse(res)
             else:
                 res = {}
@@ -38,7 +38,7 @@ def podcast(request):
                 form.save()
                 res = {}
                 res['result'] = 'success'
-                res['address'] = f'https://dashboard.heroku.com/apps/podcasts-editing/audio/{name}'
+                res['address'] = f'https://podcasts-editing.herokuapp.com/audio/{name}'
                 return JsonResponse(res)
             else:
                 res = {}
